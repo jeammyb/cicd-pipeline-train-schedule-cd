@@ -13,7 +13,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'webserver_login', passwordVariable: 'password', usernameVariable: 'userName')]) {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', passwordVariable: 'USERPASS', usernameVariable: 'USERNAME')]) {
                     echo 'Deploy to Staging'
                     sshPublisher(
                         failOnError: true,
@@ -47,8 +47,7 @@ pipeline {
                 input 'Does the staging environment look OK?'
                 milestone(1)
                 echo 'Deploy to Production'
-                withCredentials([usernamePassword(credentialsId: 'webserver_login', passwordVariable: 'password', usernameVariable: 'userName')]) {
-                    echo 'Deploy to Production'
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', passwordVariable: 'USERPASS', usernameVariable: 'USERNAME')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
